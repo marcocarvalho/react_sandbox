@@ -11,7 +11,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'slim'
+gem 'slim-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'react-rails'

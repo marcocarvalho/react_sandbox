@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Kikker
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body.skin-green.sidebar-collapse
+    .wrapper
+      header.main-header
+        = link_to root_path, class: 'logo' do
+          span.logo-lg React-POC
+        = render 'shared/navigation'
+      .content-wrapper
+        section.content-header = render 'shared/messages'
+        section class="content-header"
+          h1
+            = content_for?(:title) ? yield(:title) : t(controller_name)
+            - if content_for?(:subtitle)
+              span = yield(:subtitle)
+        section.content
+          .row
+            .col-xs-12
+              .box
+                .box-body
+                  = yield
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    / - if exist_js_file_to_controller?
+    /  = javascript_include_tag controller_name

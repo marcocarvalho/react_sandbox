@@ -1,0 +1,13 @@
+- flash.each do |name, msg|
+  - name = name.to_s == 'notice' ? 'info' : (name.to_s == 'error' || name.to_s == 'alert' ? 'danger' : name.to_s)
+  - icon = name == 'danger'  ? 'ban'     : nil
+  - icon = name == 'info'    ? 'info'    : icon
+  - icon = name == 'warning' ? 'warning' : icon
+  - icon = name == 'success' ? 'check'   : icon
+  - if msg.is_a?(String)
+    div class="alert alert-#{name}"
+      button type="button" class="close" data-dismiss="alert" aria-hidden="true"
+        ' &times;
+      div id="flash_#{name}">
+        = fa_icon icon, class: 'icon'
+        = msg
