@@ -10,20 +10,20 @@ require 'securerandom'
 
 buyers = []
 
-say 'Creating buyers'
+puts 'Creating buyers'
 30.times do
   print '.'
   name = Faker::Name.name
   buyers << Buyer.find_or_create_by(name: name) do |b|
-    b.address = Fakker::Address.address
-    b.email   = Fakker::Internet.email
-    b.city    = Fakker::Address.city
+    b.address = Faker::Address.street_address
+    b.email   = Faker::Internet.email
+    b.city    = Faker::Address.city
   end
 end
 
 products = []
 
-say 'Creating products'
+puts "\nCreating products"
 [
   { image: 'https://unsplash.it/250/200?image=655', name: 'Kombi', description: 'uma kombi veia, caindo aos cacos', price: 500.0 },
   { image: 'https://unsplash.it/250/200?image=643', name: 'Prancha de surf', description: 'prancha de surf azul encalhada na praia dos coqueiros', price: 100.0 },
@@ -48,14 +48,18 @@ say 'Creating products'
   products << Product.create!(prod_attr)
 end
 
-say 'Creating orders'
-(2..7).each do |n|
-  p = products.combination(n).to_a.sample(((SecureRandom.random_number * 8).floor)+1)
-  p.each do |prods|
-    print "#{prods.count}"
-    o = Order.create(buyer: buyers.sample(1).first)
-    prods.each do |prod|
-      o.items.create(product: prod, quantity: (SecureRandom.random_number * 10).floor + 1)
+dates = (Date.new(2015, 4, 1)..Date.new(2015,6,30)).to_a
+
+puts "\nCreating orders"
+30.times do
+  (2..7).each do |n|
+    p = products.combination(n).to_a.sample(((SecureRandom.random_number * 7).floor)+3)
+    p.each do |prods|
+      print "#{prods.count}"
+      o = Order.create(buyer: buyers.sample(1).first, date: dates.sample(1).first)
+      prods.each do |prod|
+        o.items.create(product: prod, quantity: (SecureRandom.random_number * 10).floor + 1)
+      end
     end
   end
 end
