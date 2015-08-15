@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+30.times do
+  name = Faker::Name.name
+  Buyer.find_or_create_by(name: name) do |b|
+    b.address = Fakker::Address.address
+  end
+end

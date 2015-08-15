@@ -4,6 +4,7 @@ class CreateBuyers < ActiveRecord::Migration
       t.string :name
       t.string :address
       t.string :city
+      t.string :email
 
       t.timestamps null: false
     end

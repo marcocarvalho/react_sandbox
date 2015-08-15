@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150815021245) do
     t.string   "name"
     t.string   "address"
     t.string   "city"
+    t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
