@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @buyer.name
+p
+  strong Address:
+  = @buyer.address
+p
+  strong City:
+  = @buyer.city
+
+= link_to 'Edit', edit_buyer_path(@buyer)
+'|
+= link_to 'Back', buyers_path

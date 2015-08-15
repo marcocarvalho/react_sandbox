@@ -1,0 +1,25 @@
+h1 Listing buyers
+
+table
+  thead
+    tr
+      th Name
+      th Address
+      th City
+      th
+      th
+      th
+
+  tbody
+    - @buyers.each do |buyer|
+      tr
+        td = buyer.name
+        td = buyer.address
+        td = buyer.city
+        td = link_to 'Show', buyer
+        td = link_to 'Edit', edit_buyer_path(buyer)
+        td = link_to 'Destroy', buyer, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Buyer', new_buyer_path
