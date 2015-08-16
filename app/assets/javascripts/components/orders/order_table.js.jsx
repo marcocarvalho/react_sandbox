@@ -32,6 +32,65 @@ Panel.Body = React.createClass({
   }
 });
 
+Panel.Footer = React.createClass({
+  render: function(){
+    return (<div className="panel-footer">{this.props.children}</div>);
+  }
+});
+
+var Pagination = React.createClass({
+  render: function(){
+    return (
+      <Row>
+        <ColMd12>
+          <ul className="pagination pull-right no-margin-pagination">
+            <Pagination.Previous />
+            <Pagination.Item page={1} />
+            <Pagination.Item page={2} />
+            <Pagination.Item page={3} />
+            <Pagination.Item page={4} />
+            <Pagination.Item page={5} />
+            <Pagination.Item page={6} />
+            <Pagination.Next />
+          </ul>
+        </ColMd12>
+      </Row>
+    );
+  }
+});
+
+Pagination.Previous = React.createClass({
+  render: function(){
+    return (
+      <li>
+        <a href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>      
+    );
+  }
+});
+
+Pagination.Next = React.createClass({
+  render: function(){
+    return (
+      <li>
+        <a href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>      
+    );
+  }
+});
+
+Pagination.Item = React.createClass({
+  render: function(){
+    return (
+      <li><a href="#">{this.props.page}</a></li>
+    );
+  }
+});
+
 var OrderList = React.createClass({
   getInitialState: function() {
     return { orders: [], page: 1, per_page: 10, total_pages: 0, loading: true };
@@ -66,6 +125,9 @@ var OrderList = React.createClass({
             <Panel.Body>
               <OrderList.Table orders={this.state.orders}></OrderList.Table>
             </Panel.Body>
+            <Panel.Footer>
+              <Pagination />
+            </Panel.Footer>
           </Panel>
         </ColMd12>
       </Row>
