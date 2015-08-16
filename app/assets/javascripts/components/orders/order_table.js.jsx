@@ -48,18 +48,34 @@ Panel.Footer = React.createClass({
 
 var Pagination = React.createClass({
   handleClick: function(i) {
-    this.setState({ page: i })
     this.props.onPageChange(i);
   },
-  getInitialState: function() {
-    return { page: 1 };
-  },
   pages: function(){
-    arr = [];
-    for(i = 1; i < 10; i++){
-      arr.push(<Pagination.Item key={i} page={i} isCurrentPage={this.state.page == i} click={this.handleClick} />);
+    var arr = [];
+    // Javascript sendo javascript:
+    // 5 + 5 == 55 :P
+    // 5 * 1 + 5 = 10 :P
+    var min = this.props.page * 1 - 5;
+    var max = this.props.page * 1 + 5;
+
+    if(min < 1) min = 1;
+    if(max > this.props.maxPages) max = this.props.maxPages;
+    if(this.props.page <= 4) max = 10;
+
+    for(i = min; i <= max; i++){
+      arr.push(<Pagination.Item key={i} page={i} isCurrentPage={this.props.page == i} click={this.handleClick} />);
     }
     return arr;
+  },
+  previousPage: function(){
+    var pp = this.props.page - 1;
+    if(pp < 1) pp = 1;
+    return pp;
+  },
+  nextPage: function(){
+    var np = this.props.page + 1;
+    if(np > this.props.maxPages) np = this.props.maxPages;
+    return np;
   },
   render: function(){
     var pages = []
@@ -67,9 +83,9 @@ var Pagination = React.createClass({
       <Row>
         <ColMd12>
           <ul className="pagination pull-right no-margin-pagination">
-            <Pagination.Previous />
+            <Pagination.Previous page={this.previousPage()} click={this.handleClick} />
             { this.pages() }
-            <Pagination.Next />
+            <Pagination.Next page={this.nextPage()} click={this.handleClick} />
           </ul>
         </ColMd12>
       </Row>
@@ -78,10 +94,14 @@ var Pagination = React.createClass({
 });
 
 Pagination.Previous = React.createClass({
+  handleClick: function(evt){
+    this.props.click(this.props.page);
+    evt.preventDefault();
+  },
   render: function(){
     return (
       <li>
-        <a href="#" aria-label="Previous">
+        <a href="#" aria-label="Previous" onClick={this.handleClick}>
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>      
@@ -90,10 +110,14 @@ Pagination.Previous = React.createClass({
 });
 
 Pagination.Next = React.createClass({
+  handleClick: function(evt){
+    this.props.click(this.props.page);
+    evt.preventDefault();
+  },
   render: function(){
     return (
       <li>
-        <a href="#" aria-label="Next">
+        <a href="#" aria-label="Next" onClick={this.handleClick}>
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>      
@@ -159,7 +183,7 @@ var OrderList = React.createClass({
               <OrderList.Table orders={this.state.orders}></OrderList.Table>
             </Panel.Body>
             <Panel.Footer>
-              <Pagination onPageChange={this.handlePageChange} />
+              <Pagination onPageChange={this.handlePageChange} maxPages={this.state.total_pages} page={this.state.page} />
             </Panel.Footer>
           </Panel>
         </ColMd12>
