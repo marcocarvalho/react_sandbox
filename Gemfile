@@ -16,6 +16,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'react-rails'
 gem 'annotate'
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -27,7 +28,6 @@ group :development, :test do
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'shoulda-matchers'
   gem 'rubocop'
-  gem 'faker'
   gem 'i18n-debug', require: false # remove "require: false" if one want to see all i18n queries
 end
 
