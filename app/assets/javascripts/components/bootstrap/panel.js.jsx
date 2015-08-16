@@ -40,6 +40,51 @@ Panel.Body.Tabbable = React.createClass({
   }
 });
 
+Panel.Body.Tabbable.Tabs = React.createClass({
+  render: function(){
+    tabs = this.props.tabs.map(
+      function(t) {
+        return (<Panel.Body.Tabbable.Tabs.Tab {...t} />)
+      }
+    );
+
+    return (
+      <ul className="nav nav-tabs" role="tablist">
+        { tabs }
+      </ul>
+    );
+  }
+});
+
+// Panel.Body.Tabbable.TabContent = React.createClass({
+//   render: function(){
+//     return (
+//       this.props.tabs.map(
+//       function(t) {
+//         return (<Panel.Body.Tabbable.Tabs.Tab {...t} />)
+//       }
+//     );
+//   }
+// });
+
+
+Panel.Body.Tabbable.Tabs.Tab = React.createClass({
+  render: function(){
+    var classes = '';
+    var href = '#' + this.props.name;
+    if(this.props.active){
+      classes = 'active';
+    }
+    return (
+      <li className={classes} role="presentation">
+        <a aria-controls={this.props.name} data-toggle="tab" href={href} role="tab">
+          {this.props.label}
+        </a>
+      </li>      
+    );
+  }
+});
+
 Panel.Footer = React.createClass({
   render: function(){
     return (<div className="panel-footer">{this.props.children}</div>);

@@ -32,10 +32,14 @@ OrderList.Table.Order = React.createClass({
     date: React.PropTypes.string.isRequired,
     total: React.PropTypes.number.isRequired
   },
-
+  handleClick: function(){
+    // Como usa os eventos sintéticos do próprio React para fazer isso?
+    $(document).trigger('Order::Selected', this.props.orderId);
+    $(document).trigger('Buyer::Selected', this.props.buyerId);
+  },
   render: function(){
     return (
-      <tr>
+      <tr onClick={this.handleClick}>
         <td>{this.props.orderId}</td>
         <td>{this.props.buyer}</td>
         <td>{this.props.quantity}</td>

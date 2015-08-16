@@ -1,17 +1,35 @@
 var Detail = React.createClass({
+  handleOrderChange: function(evt, orderId) {
+    console.log('Order::Selected ' + orderId);
+  },
+  handleBuyerChange: function(evt, buyerId) {
+    console.log('Order::Selected ' + buyerId);
+  },
+  componentDidMount: function(){
+    $(document).on('Order::Selected', this.handleOrderChange);
+    $(document).on('Buyer::Selected', this.handleBuyerChange);
+  },
+  componentWillUnmount: function(){
+    $(document).off('Order::Selected', this.handleOrderChange);
+    $(document).off('Buyer::Selected', this.handleBuyerChange);
+  },
   render: function(){
+    var tabs = [
+      {
+        name: 'items',
+        label: 'Itens',
+        active: true
+      },
+      {
+        name: 'buyer',
+        label: 'Comprador'
+      }
+    ];
     return (
-      <div className="col-md-6">
-        <div className="panel panel-success">
-          <div className="panel-body tabbable">
-            <ul className="nav nav-tabs" role="tablist">
-              <li className="active" role="presentation">
-                <a aria-controls="itens" data-toggle="tab" href="#itens" role="tab">Itens </a>
-              </li>
-              <li role="presentation">
-                <a aria-controls="buyer" data-toggle="tab" href="#buyer" role="tab">Comprador </a>
-              </li>
-            </ul>
+      <ColMd size="6">
+        <Panel.Success>
+          <Panel.Body.Tabbable>
+            <Panel.Body.Tabbable.Tabs tabs={tabs} />
             <div className="tab-content">
               <div className="tab-pane active" id="home" role="tabpanel">
                 Itens 
@@ -20,9 +38,9 @@ var Detail = React.createClass({
                 Comprador 
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </Panel.Body.Tabbable>
+        </Panel.Success>
+      </ColMd>
     );
   }
 });
