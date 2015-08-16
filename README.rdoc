@@ -1,7 +1,7 @@
 == Setup
 
-bundle install
-rake db:create db:migrade
-rake db:seed
+1. bundle install
+2. rake db:create db:migrade
+3. rake db:seed
 
 rails s -b 0.0.0.0
