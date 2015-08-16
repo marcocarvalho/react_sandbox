@@ -33,19 +33,17 @@ var OrderList = React.createClass({
   render: function(){
     // i18n?
     return (
-      <Row>
-        <ColMd size="12">
-          <Panel>
-            <Panel.Heading title="Pedidos" loading={this.state.loading} />
-            <Panel.Body>
-              <OrderList.Table orders={this.state.orders}></OrderList.Table>
-            </Panel.Body>
-            <Panel.Footer>
-              <Pagination onPageChange={this.handlePageChange} maxPages={this.state.total_pages} page={this.state.page} />
-            </Panel.Footer>
-          </Panel>
-        </ColMd>
-      </Row>
+      <ColMd size="12">
+        <Panel>
+          <Panel.Heading title="Pedidos" loading={this.state.loading} />
+          <Panel.Body>
+            <OrderList.Table orders={this.state.orders}></OrderList.Table>
+          </Panel.Body>
+          <Panel.Footer>
+            <Pagination onPageChange={this.handlePageChange} maxPages={this.state.total_pages} page={this.state.page} />
+          </Panel.Footer>
+        </Panel>
+      </ColMd>
     );
   }
 });
