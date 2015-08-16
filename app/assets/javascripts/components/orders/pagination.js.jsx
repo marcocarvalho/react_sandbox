@@ -33,13 +33,13 @@ var Pagination = React.createClass({
     var pages = []
     return (
       <Row>
-        <ColMd12>
+        <ColMd size="12">
           <ul className="pagination pull-right no-margin-pagination">
             <Pagination.Previous page={this.previousPage()} click={this.handleClick} />
             { this.pages() }
             <Pagination.Next page={this.nextPage()} click={this.handleClick} />
           </ul>
-        </ColMd12>
+        </ColMd>
       </Row>
     );
   }

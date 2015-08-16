@@ -4,6 +4,12 @@ var Panel = React.createClass({
   }
 });
 
+Panel.Success = React.createClass({
+  render: function(){
+    return (<div className="panel panel-success">{this.props.children}</div>);
+  }
+});
+
 Panel.Heading = React.createClass({
   render: function(){
     var classes = 'fa fa-refresh fa-spin';
@@ -25,6 +31,12 @@ Panel.Heading = React.createClass({
 Panel.Body = React.createClass({
   render: function(){
     return (<div className="panel-body">{this.props.children}</div>);
+  }
+});
+
+Panel.Body.Tabbable = React.createClass({
+  render: function(){
+    return (<div className="panel-body tabbable">{this.props.children}</div>);
   }
 });
 

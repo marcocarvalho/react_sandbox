@@ -31,11 +31,11 @@ var OrderList = React.createClass({
     this.loadOrders();
   },
   render: function(){
+    // i18n?
     return (
       <Row>
-        <ColMd12>
+        <ColMd size="12">
           <Panel>
-            // I18n?
             <Panel.Heading title="Pedidos" loading={this.state.loading} />
             <Panel.Body>
               <OrderList.Table orders={this.state.orders}></OrderList.Table>
@@ -44,7 +44,7 @@ var OrderList = React.createClass({
               <Pagination onPageChange={this.handlePageChange} maxPages={this.state.total_pages} page={this.state.page} />
             </Panel.Footer>
           </Panel>
-        </ColMd12>
+        </ColMd>
       </Row>
     );
   }

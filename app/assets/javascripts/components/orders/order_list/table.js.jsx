@@ -27,6 +27,7 @@ OrderList.Table.Order = React.createClass({
   propTypes:{
     orderId: React.PropTypes.number.isRequired,
     buyer: React.PropTypes.string.isRequired,
+    buyerId: React.PropTypes.number.isRequired,
     quantity: React.PropTypes.number.isRequired,
     date: React.PropTypes.string.isRequired,
     total: React.PropTypes.number.isRequired
