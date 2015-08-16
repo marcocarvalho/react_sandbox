@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby "2.2.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
@@ -17,13 +17,13 @@ gem 'font-awesome-rails'
 gem 'react-rails'
 gem 'annotate'
 gem 'kaminari'
+gem 'faker'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
-  gem 'faker'
   gem 'capybara'
   gem 'poltergeist', require: 'capybara/poltergeist'
   gem 'shoulda-matchers'
