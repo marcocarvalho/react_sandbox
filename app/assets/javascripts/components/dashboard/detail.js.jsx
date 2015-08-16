@@ -1,14 +1,14 @@
 var Detail = React.createClass({
   handleOrderChange: function(evt, orderId) {
-    console.log('Order::Selected ' + orderId);
+    var state = this.state;
+    state.orderId = orderId;
+    this.setState(state, this.loadOrder);
   },
   handleBuyerChange: function(evt, buyerId) {
-    this.setState({
-      buyerId: buyerId,
-      items: this.state.items,
-      activeTab: this.state.activeTab,
-      buyer: { buyerId: buyerId },
-    }, this.loadBuyer);
+    var state = this.state;
+    state.buyerId = buyerId;
+    state.buyer.buyerId = buyerId;
+    this.setState(state, this.loadBuyer);
   },
   componentDidMount: function(){
     $(document).on('Order::Selected', this.handleOrderChange);
@@ -19,7 +19,7 @@ var Detail = React.createClass({
     $(document).off('Buyer::Selected', this.handleBuyerChange);
   },
   getInitialState: function(){
-    return { items:[], activeTab: 'items', buyer: {}, buyerId: null };
+    return { items:[], activeTab: 'items', buyer: {}, buyerId: null, orderId: null };
   },
   loadBuyer: function(){
     if(this.state.buyerId == null) return;
@@ -32,11 +32,26 @@ var Detail = React.createClass({
         var state = this.state;
         state.buyer = data;
         this.setState(state);
-        console.log('loaded buyer');
-        console.log(state);
       }.bind(this),
       error: function(xhr, status, err){
         console.error(this.props.buyerId, status, err.toString());
+      }.bind(this)
+    });
+  },
+  loadOrder: function(){
+    if(this.state.orderId == null) return;
+    $.ajax({
+      // TODO: filtros
+      url: '/orders/'+ this.state.orderId +'/items.json',
+      dataType: 'json',
+      cache: false,
+      success: function(data){
+        var state = this.state;
+        state.items = data.items;
+        this.setState(state);
+      }.bind(this),
+      error: function(xhr, status, err){
+        console.error(this.props.orderId, status, err.toString());
       }.bind(this)
     });
   },
