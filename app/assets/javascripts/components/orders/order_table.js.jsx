@@ -18,9 +18,17 @@ var Panel = React.createClass({
 
 Panel.Heading = React.createClass({
   render: function(){
+    var classes = 'fa fa-refresh fa-spin';
+    if(!this.props.loading){
+      classes = classes + ' hidden';
+    }
     return (
       <div className="panel-heading">
-        <h3 className="panel-title">{this.props.title}</h3>
+        <h3 className="panel-title">
+          <i className={classes}></i>
+          &nbsp;
+          {this.props.title}
+        </h3>
       </div>
     );
   }
@@ -40,7 +48,8 @@ Panel.Footer = React.createClass({
 
 var Pagination = React.createClass({
   handleClick: function(i) {
-    console.log('You clicked: ' + i);
+    this.setState({ page: i })
+    this.props.onPageChange(i);
   },
   getInitialState: function() {
     return { page: 1 };
@@ -133,6 +142,13 @@ var OrderList = React.createClass({
   componentDidMount: function(){
     this.loadOrders();
   },
+  handlePageChange: function(page){
+    var st = this.state;
+    st.page = page;
+    st.loading = true;
+    this.setState(st);
+    this.loadOrders();
+  },
   render: function(){
     return (
       <Row>
@@ -143,7 +159,7 @@ var OrderList = React.createClass({
               <OrderList.Table orders={this.state.orders}></OrderList.Table>
             </Panel.Body>
             <Panel.Footer>
-              <Pagination />
+              <Pagination onPageChange={this.handlePageChange} />
             </Panel.Footer>
           </Panel>
         </ColMd12>
