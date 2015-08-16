@@ -39,18 +39,27 @@ Panel.Footer = React.createClass({
 });
 
 var Pagination = React.createClass({
+  handleClick: function(i) {
+    console.log('You clicked: ' + i);
+  },
+  getInitialState: function() {
+    return { page: 1 };
+  },
+  pages: function(){
+    arr = [];
+    for(i = 1; i < 10; i++){
+      arr.push(<Pagination.Item key={i} page={i} isCurrentPage={this.state.page == i} click={this.handleClick} />);
+    }
+    return arr;
+  },
   render: function(){
+    var pages = []
     return (
       <Row>
         <ColMd12>
           <ul className="pagination pull-right no-margin-pagination">
             <Pagination.Previous />
-            <Pagination.Item page={1} />
-            <Pagination.Item page={2} />
-            <Pagination.Item page={3} />
-            <Pagination.Item page={4} />
-            <Pagination.Item page={5} />
-            <Pagination.Item page={6} />
+            { this.pages() }
             <Pagination.Next />
           </ul>
         </ColMd12>
@@ -84,9 +93,17 @@ Pagination.Next = React.createClass({
 });
 
 Pagination.Item = React.createClass({
+  handleClick: function(evt){
+    this.props.click(this.props.page);
+    evt.preventDefault();
+  },
   render: function(){
+    var classes = '';
+    if(this.props.isCurrentPage){
+      classes = 'active';
+    }
     return (
-      <li><a href="#">{this.props.page}</a></li>
+      <li className={classes}><a href="#" onClick={this.handleClick}>{this.props.page}</a></li>
     );
   }
 });
