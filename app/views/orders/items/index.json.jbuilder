@@ -3,5 +3,5 @@ json.items(@items) do |item|
   json.product item.product.name
   json.quantity item.quantity
   json.price item.product.price
-  json.sub_total item.sub_total
+  json.subTotal item.sub_total
 end

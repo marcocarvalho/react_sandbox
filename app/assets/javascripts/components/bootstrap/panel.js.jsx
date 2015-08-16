@@ -36,7 +36,19 @@ Panel.Body = React.createClass({
 
 Panel.Body.Tabbable = React.createClass({
   render: function(){
-    return (<div className="panel-body tabbable">{this.props.children}</div>);
+    return (
+      <div className="panel-body tabbable">
+        <Panel.Body.Tabbable.Tabs tabs={this.props.tabs} />
+        <div className="tab-content">
+          <div className="tab-pane active" id="items" role="tabpanel">
+            <Detail.TableItems items={this.props.items} />
+          </div>
+          <div className="tab-pane" id="buyer" role="tabpanel">
+            <Detail.Buyer {...this.props.buyer} />
+          </div>
+        </div>
+      </div>
+    );
   }
 });
 
@@ -44,7 +56,7 @@ Panel.Body.Tabbable.Tabs = React.createClass({
   render: function(){
     tabs = this.props.tabs.map(
       function(t) {
-        return (<Panel.Body.Tabbable.Tabs.Tab {...t} />)
+        return (<Panel.Body.Tabbable.Tabs.Tab key={t.name} {...t} />)
       }
     );
 
@@ -55,18 +67,6 @@ Panel.Body.Tabbable.Tabs = React.createClass({
     );
   }
 });
-
-// Panel.Body.Tabbable.TabContent = React.createClass({
-//   render: function(){
-//     return (
-//       this.props.tabs.map(
-//       function(t) {
-//         return (<Panel.Body.Tabbable.Tabs.Tab {...t} />)
-//       }
-//     );
-//   }
-// });
-
 
 Panel.Body.Tabbable.Tabs.Tab = React.createClass({
   render: function(){
