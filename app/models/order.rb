@@ -2,6 +2,14 @@ class Order < ActiveRecord::Base
   belongs_to :buyer
   has_many :items, class_name: 'OrderItem'
   has_many :products, through: :items
+
+  def total
+    items.joins(:product).sum('order_items.quantity * products.price')
+  end
+
+  def items_count
+    items.count
+  end
 end
 
 # == Schema Information

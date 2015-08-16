@@ -1,2 +1,60 @@
-h1 Home#index
-p Find me in app/views/home/index.html.slim
+.row
+  .col-md-6
+    .panel.panel-primary
+      .panel-heading
+          h3 class="panel-title" Filtros
+      .panel-body
+        form
+          .row
+            .col-md-2
+            .col-md-5
+              label De
+            .col-md-5
+              label Até
+          .form-group.row
+            .col-md-2
+              label Data
+            .col-md-5
+              input type="date" name="date_ini" class="form-control"
+            .col-md-5
+              input type="date" name="date_end" class="form-control"
+          .form-group.row
+            .col-md-2
+              label Valor
+            .col-md-5
+              input type="number" format="^\d+(?:,\d{3})*\.\d{2}$" name="money_ini" class="form-control"
+            .col-md-5
+              input type="number" format="^\d+(?:,\d{3})*\.\d{2}$" name="money_end" class="form-control"
+          .form-group.row
+            .col-md-2
+              label No. Itens 
+            .col-md-5
+              input type="number" format="^\d+$" name="itens_ini" class="form-control"
+            .col-md-5
+              input type="number" format="^\d+$" name="itens_end" class="form-control"
+          .form-group.row
+            .col-md-5.col-md-offset-7
+              button type="submit" class="btn btn-primary pull-right" Filtrar
+  .col-md-6
+    .panel.panel-success
+      .panel-body.tabbable
+        / Tab panes
+        .tab-content
+          .tab-pane.active role="tabpanel" id="home"
+            ' Itens
+          .tab-pane role="tabpanel" id="profile"
+            ' Comprador
+        ul class="nav nav-tabs" role="tablist"
+          li role="presentation" class="active"
+            a href="#itens" aria-controls="itens" role="tab" data-toggle="tab"
+              ' Itens
+          li role="presentation"
+            a href="#buyer" aria-controls="buyer" role="tab" data-toggle="tab"
+              ' Comprador
+.row
+  .col-md-12
+    .panel.panel-info
+      .panel-heading
+          h3 class="panel-title" Pedidos
+      .panel-body
+        = react_component('OrderTable')
