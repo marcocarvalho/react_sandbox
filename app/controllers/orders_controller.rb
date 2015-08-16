@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.includes(:buyer, :items).all.order(:date)
+    @orders = Order.includes(:buyer, :items).all.order(:date).page(page).per(per_page)
   end
 
   # GET /orders/1
@@ -61,7 +61,18 @@ class OrdersController < ApplicationController
     end
   end
 
+  helper_method :page
+  helper_method :per_page
+
   private
+    def page
+      params[:page] || 1
+    end
+
+    def per_page
+      params[:per_page] || 10
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
